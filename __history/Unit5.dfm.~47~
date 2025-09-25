@@ -1,0 +1,99 @@
+object Form5: TForm5
+  Left = 0
+  Top = 0
+  Caption = 'Form5'
+  ClientHeight = 494
+  ClientWidth = 516
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object Image1: TImage
+    Left = 168
+    Top = 120
+    Width = 177
+    Height = 177
+    Stretch = True
+  end
+  object HTMLabel1: THTMLabel
+    Left = 80
+    Top = 8
+    Width = 361
+    Height = 97
+    HTMLText.Strings = (
+      
+        '<FONT color="#E63946"  size="37"   face="Segoe UI Black"   ><P a' +
+        'lign="center">'#1055#1088#1086#1092#1110#1083#1100'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object Image2: TImage
+    Left = 32
+    Top = 24
+    Width = 25
+    Height = 41
+    Stretch = True
+    OnClick = Image2Click
+  end
+  object HTMLabel2: THTMLabel
+    Left = 24
+    Top = 352
+    Width = 120
+    Height = 33
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1055#1030#1041':</P></FONT>')
+    ParentFont = False
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object HTMLabel3: THTMLabel
+    Left = 24
+    Top = 423
+    Width = 120
+    Height = 33
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1058#1077#1083#1077#1092#1086#1085':</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object Edit2: TEdit
+    Left = 168
+    Top = 339
+    Width = 321
+    Height = 53
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -33
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object Edit1: TEdit
+    Left = 168
+    Top = 420
+    Width = 321
+    Height = 53
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -33
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+  end
+end

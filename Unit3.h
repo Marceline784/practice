@@ -1,0 +1,112 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit3H
+#define Unit3H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include "HTMLabel.hpp"
+#include <Vcl.ExtCtrls.hpp>
+#include "AdvListBox.hpp"
+#include "AdvListV.hpp"
+#include "ColListb.hpp"
+#include <Vcl.ComCtrls.hpp>
+#include "AdvScrollBox.hpp"
+#include "AdvPanel.hpp"
+#include "AdvGlowButton.hpp"
+#include <Data.DB.hpp>
+#include <Data.Win.ADODB.hpp>
+//---------------------------------------------------------------------------
+class TForm3 : public TForm
+{
+__published:	// IDE-managed Components
+	THTMLabel *HTMLabel1;
+	TImage *Image1;
+	TImage *Image2;
+	TFlowPanel *FlowPanel1;
+	THTMLabel *HTMLabel2;
+	THTMLabel *HTMLabel3;
+	THTMLabel *HTMLabel4;
+	THTMLabel *HTMLabel5;
+	TAdvScrollBox *AdvScrollBox1;
+	TAdvPanel *AdvPanel2;
+	THTMLabel *HTMLabel9;
+	THTMLabel *HTMLabel10;
+	THTMLabel *HTMLabel11;
+	TImage *Image4;
+	TAdvGlowButton *Button;
+	TImage *Image3;
+	TAdvPanel *AdvPanel1;
+	THTMLabel *HTMLabel6;
+	THTMLabel *HTMLabel7;
+	THTMLabel *HTMLabel8;
+	TImage *Image5;
+	TImage *Image6;
+	TAdvGlowButton *AdvGlowButton1;
+	TAdvPanel *AdvPanel3;
+	THTMLabel *HTMLabel12;
+	THTMLabel *HTMLabel13;
+	THTMLabel *HTMLabel14;
+	TImage *Image7;
+	TImage *Image8;
+	TAdvGlowButton *AdvGlowButton2;
+	TAdvPanel *AdvPanel4;
+	THTMLabel *HTMLabel15;
+	THTMLabel *HTMLabel16;
+	THTMLabel *HTMLabel17;
+	TImage *Image9;
+	TImage *Image10;
+	TAdvGlowButton *AdvGlowButton3;
+	TAdvPanel *AdvPanel5;
+	THTMLabel *HTMLabel18;
+	THTMLabel *HTMLabel19;
+	THTMLabel *HTMLabel20;
+	TImage *Image11;
+	TImage *Image12;
+	TAdvGlowButton *AdvGlowButton4;
+	TAdvPanel *AdvPanel6;
+	THTMLabel *HTMLabel21;
+	THTMLabel *HTMLabel22;
+	THTMLabel *HTMLabel23;
+	TImage *Image13;
+	TImage *Image14;
+	TAdvGlowButton *AdvGlowButton5;
+	TADOQuery *ADOQuery2;
+	TADOQuery *ADOQuery3;
+	TAdvGlowButton *AdvGlowButton6;
+	TADOQuery *ADOQuery1;
+	TImage *Image15;
+
+	void __fastcall HTMLabel5Click(TObject *Sender);
+	void __fastcall HTMLabel4Click(TObject *Sender);
+	void __fastcall HTMLabel3Click(TObject *Sender);
+	void __fastcall HTMLabel2Click(TObject *Sender);
+	void __fastcall Image2Click(TObject *Sender);
+	void __fastcall ButtonClick(TObject *Sender);
+	void __fastcall AdvGlowButton5Click(TObject *Sender);
+	void __fastcall AdvGlowButton1Click(TObject *Sender);
+	void __fastcall AdvGlowButton2Click(TObject *Sender);
+	void __fastcall AdvGlowButton3Click(TObject *Sender);
+	void __fastcall AdvGlowButton4Click(TObject *Sender);
+	void __fastcall AdvGlowButton6Click(TObject *Sender);
+    void __fastcall HeartImageClick(TObject *Sender);
+	void __fastcall Image1Click(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+	void __fastcall Image15Click(TObject *Sender);
+private:	// User declarations
+TImage* HeartImages[6];
+public:		// User declarations
+ int CurrentUserId;
+	__fastcall TForm3(TComponent* Owner);
+	void __fastcall FilterCategoryFromDB(String category);
+	void __fastcall SelectCategoryLabel(THTMLabel* selectedLabel);
+    void __fastcall ToggleFavorite(int drinkId);
+    void __fastcall UpdateHeartState(int drinkId, bool isFavorite);
+	void __fastcall LoadFavoritesState();
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm3 *Form3;
+//---------------------------------------------------------------------------
+#endif

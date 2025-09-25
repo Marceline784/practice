@@ -1,0 +1,70 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit4.h"
+#include "Unit1.h"
+#include "Unit2.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "HTMLabel"
+#pragma link "AdvEdit"
+#pragma link "DBAdvEd"
+#pragma link "AdvGlowButton"
+#pragma resource "*.dfm"
+TForm4 *Form4;
+//---------------------------------------------------------------------------
+__fastcall TForm4::TForm4(TComponent* Owner)
+	: TForm(Owner)
+{
+	Form4->Color = (TColor)0x1E1E1E;
+
+	DBAdvEdit1->Color = (TColor)0x1E1E1E;
+	DBAdvEdit1->Font->Color = clWhite;
+	DBAdvEdit1->Flat = true;
+
+	DBAdvEdit2->Color = (TColor)0x1E1E1E;
+	DBAdvEdit2->Font->Color = clWhite;
+	DBAdvEdit2->Flat = true;
+
+	DBAdvEdit3->Color = (TColor)0x1E1E1E;
+	DBAdvEdit3->Font->Color = clWhite;
+	DBAdvEdit3->Flat = true;
+
+	DBAdvEdit4->Color = (TColor)0x1E1E1E;
+	DBAdvEdit4->Font->Color = clWhite;
+	DBAdvEdit4->Flat = true;
+	DBAdvEdit4->EditType = etPassword;
+	DBAdvEdit4->PasswordChar = '*';
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm4::ButtonClick(TObject *Sender)
+{
+String pib = DBAdvEdit1->Text.Trim();
+    String phone = DBAdvEdit2->Text.Trim();
+    String login = DBAdvEdit3->Text.Trim();
+	String password = DBAdvEdit4->Text.Trim();
+try {
+Form2->DataSource1->DataSet->Open();
+	Form2->DataSource1->DataSet->Append();
+
+	Form2->DataSource1->DataSet->FieldByName("ПІБ")->AsString = pib;
+	Form2->DataSource1->DataSet->FieldByName("Логін")->AsString = login;
+	Form2->DataSource1->DataSet->FieldByName("Пароль")->AsString = password;
+	Form2->DataSource1->DataSet->FieldByName("Телефон")->AsString = phone;
+
+
+    Form2->DataSource1->DataSet->Post();
+
+    ShowMessage("Реєстрація успішна!");
+    this->Hide();
+	Form1->Show();
+}
+catch (const Exception &e) {
+    ShowMessage("Помилка при збереженні: " + e.Message);
+}
+
+}
+//---------------------------------------------------------------------------

@@ -1,0 +1,41 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit4H
+#define Unit4H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include "HTMLabel.hpp"
+#include "AdvEdit.hpp"
+#include "DBAdvEd.hpp"
+#include "AdvGlowButton.hpp"
+#include <Data.DB.hpp>
+#include <Data.Win.ADODB.hpp>
+//---------------------------------------------------------------------------
+class TForm4 : public TForm
+{
+__published:	// IDE-managed Components
+	THTMLabel *HTMLabel1;
+	THTMLabel *HTMLabel2;
+	TDBAdvEdit *DBAdvEdit1;
+	THTMLabel *HTMLabel3;
+	TDBAdvEdit *DBAdvEdit2;
+	TDBAdvEdit *DBAdvEdit3;
+	THTMLabel *HTMLabel4;
+	THTMLabel *HTMLabel5;
+	TDBAdvEdit *DBAdvEdit4;
+	THTMLabel *HTMLabel6;
+	TDBAdvEdit *DBAdvEdit5;
+	TAdvGlowButton *Button;
+	TADOQuery *ADOQuery1;
+	void __fastcall ButtonClick(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TForm4(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm4 *Form4;
+//---------------------------------------------------------------------------
+#endif

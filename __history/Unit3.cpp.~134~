@@ -1,0 +1,344 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include "Unit1.h"
+#include "Unit3.h"
+#include "Unit2.h"
+#include "Unit5.h"
+#include "Unit6.h"
+#include "Unit7.h"
+#include "Unit9.h"
+
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "HTMLabel"
+#pragma link "AdvListBox"
+#pragma link "AdvListV"
+#pragma link "ColListb"
+#pragma link "AdvScrollBox"
+#pragma link "AdvPanel"
+#pragma link "AdvGlowButton"
+#pragma resource "*.dfm"
+TForm3 *Form3;
+//---------------------------------------------------------------------------
+__fastcall TForm3::TForm3(TComponent* Owner)
+	: TForm(Owner)
+{
+Form3->Color = (TColor)0x1E1E1E;
+FlowPanel1->Color = (TColor)0x1E1E1E;
+AdvScrollBox1->VertScrollBar->Position = 0;
+TAdvPanel* panels[] = { AdvPanel1, AdvPanel2, AdvPanel3, AdvPanel4, AdvPanel5, AdvPanel6 };
+
+for (int i = 0; i < 6; i++) {
+	panels[i]->Color = (TColor)0x1E1E1E;
+}
+
+
+Image1->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+Image2->Picture->LoadFromFile("D:\\Документи\\Практика\\profile.png");
+Image4->Picture->LoadFromFile("D:\\Документи\\Практика\\aperol.png");
+Image5->Picture->LoadFromFile("D:\\Документи\\Практика\\strwpn.png");
+Image7->Picture->LoadFromFile("D:\\Документи\\Практика\\pncolada.png");
+Image9->Picture->LoadFromFile("D:\\Документи\\Практика\\shot.png");
+Image11->Picture->LoadFromFile("D:\\Документи\\Практика\\bellini.png");
+Image13->Picture->LoadFromFile("D:\\Документи\\Практика\\clover.png");
+Image3->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+Image6->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+Image8->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+Image10->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+Image12->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+Image14->Picture->LoadFromFile("D:\\Документи\\Практика\\heart.png");
+	HeartImages[0] = Image3;
+	HeartImages[1] = Image6;
+	HeartImages[2] = Image8;
+	HeartImages[3] = Image10;
+	HeartImages[4] = Image12;
+	HeartImages[5] = Image14;
+
+AdvPanel1->Tag = 2;
+AdvPanel2->Tag = 1;
+AdvPanel3->Tag = 3;
+AdvPanel4->Tag = 4;
+AdvPanel5->Tag = 5;
+AdvPanel6->Tag = 6;
+SelectCategoryLabel(HTMLabel2);
+FilterCategoryFromDB("Усе");
+LoadFavoritesState();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm3::FormShow(TObject *Sender)
+{
+	LoadFavoritesState();
+	SelectCategoryLabel(HTMLabel2);
+	FilterCategoryFromDB("Усе");
+}
+
+void __fastcall TForm3::FilterCategoryFromDB(String category) {
+	TStrings *matchingIDs = new TStringList;
+    int categoryID = -1;
+
+    if (category != "Усе") {
+		ADOQuery3->Close();
+		ADOQuery3->SQL->Text = "SELECT Категорії FROM Категорії WHERE Назва = :cat";
+		ADOQuery3->Parameters->ParamByName("cat")->Value = category;
+		ADOQuery3->Open();
+
+        if (!ADOQuery3->Eof)
+			categoryID = ADOQuery3->FieldByName("Категорії")->AsInteger;
+		else {
+			delete matchingIDs;
+			return;
+		}
+    }
+
+	ADOQuery2->Close();
+
+	if (category == "Усе") {
+		ADOQuery2->SQL->Text = "SELECT Напій FROM Напій";
+	}
+	else {
+		ADOQuery2->SQL->Text = "SELECT Напій FROM Напій WHERE Категорія = :id";
+		ADOQuery2->Parameters->ParamByName("id")->Value = categoryID;
+	}
+	ADOQuery2->Open();
+
+	while (!ADOQuery2->Eof) {
+		matchingIDs->Add(ADOQuery2->FieldByName("Напій")->AsString);
+		ADOQuery2->Next();
+	}
+
+	int y = 0;
+
+for (int i = 0; i < AdvScrollBox1->ControlCount; i++) {
+	TControl *ctrl = AdvScrollBox1->Controls[i];
+	if (ctrl->InheritsFrom(__classid(TAdvPanel))) {
+		TAdvPanel *panel = (TAdvPanel*)ctrl;
+		String tagStr = IntToStr(panel->Tag);
+		if (matchingIDs->IndexOf(tagStr) != -1) {
+			panel->Visible = true;
+		}
+		else {
+			panel->Visible = false;
+		}
+	}
+}
+	AdvScrollBox1->VertScrollBar->Position = 0;
+	delete matchingIDs;
+}
+
+void __fastcall TForm3::SelectCategoryLabel(THTMLabel* selectedLabel) {
+	THTMLabel* labels[] = { HTMLabel2, HTMLabel3, HTMLabel4, HTMLabel5 };
+
+	for (int i = 0; i < 4; i++) {
+		if (labels[i] == selectedLabel) {
+			labels[i]->Font->Color = (TColor)0x004639E6;
+		} else {
+			labels[i]->Font->Color = (TColor)0xD3D3D3;
+		}
+	}
+}
+ void __fastcall TForm3::HTMLabel5Click(TObject *Sender) {
+	SelectCategoryLabel(HTMLabel5);
+	FilterCategoryFromDB("Шоти");
+}
+
+void __fastcall TForm3::HTMLabel4Click(TObject *Sender) {
+	SelectCategoryLabel(HTMLabel4);
+	FilterCategoryFromDB("Сауери");
+}
+
+
+void __fastcall TForm3::HTMLabel2Click(TObject *Sender) {
+	SelectCategoryLabel(HTMLabel2);
+	FilterCategoryFromDB("Усе");
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::HTMLabel3Click(TObject *Sender)
+{
+	  SelectCategoryLabel(HTMLabel3);
+	FilterCategoryFromDB("Лонги");
+
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm3::Image2Click(TObject *Sender)
+{
+Form5->CurrentUserId = CurrentUserId;
+Form5->Show();
+this->Hide();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::ButtonClick(TObject *Sender)
+{
+int napijID = 2;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton5Click(TObject *Sender)
+{
+int napijID = 6;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton1Click(TObject *Sender)
+{
+int napijID = 1;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton2Click(TObject *Sender)
+{
+int napijID = 3;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton3Click(TObject *Sender)
+{
+int napijID = 4;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton4Click(TObject *Sender)
+{
+int napijID = 5;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton6Click(TObject *Sender)
+{
+  Form6->Show();
+	this->Hide();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::LoadFavoritesState()
+{
+	if (CurrentUserId <= 0) return;
+
+	try {
+		ADOQuery1->Close();
+		ADOQuery1->SQL->Text = "SELECT Напій FROM Улюблені WHERE Користувач = :userId";
+		ADOQuery1->Parameters->ParamByName("userId")->Value = CurrentUserId;
+		ADOQuery1->Open();
+
+		while (!ADOQuery1->Eof) {
+			int drinkId = ADOQuery1->FieldByName("Напій")->AsInteger;
+			UpdateHeartState(drinkId, true);
+			ADOQuery1->Next();
+		}
+	}
+    catch (Exception &e) {
+        ShowMessage("Помилка завантаження улюблених: " + e.Message);
+    }
+}
+
+void __fastcall TForm3::ToggleFavorite(int drinkId)
+{
+    bool isFavorite = false;
+
+    ADOQuery1->Close();
+	ADOQuery1->SQL->Text = "SELECT 1 FROM Улюблені WHERE Користувач = :userId AND Напій = :drinkId";
+    ADOQuery1->Parameters->ParamByName("userId")->Value = CurrentUserId;
+    ADOQuery1->Parameters->ParamByName("drinkId")->Value = drinkId;
+    ADOQuery1->Open();
+    isFavorite = !ADOQuery1->IsEmpty();
+
+    try {
+		if (isFavorite) {
+			ADOQuery1->Close();
+			ADOQuery1->SQL->Text = "DELETE FROM Улюблені WHERE Користувач = :userId AND Напій = :drinkId";
+			ADOQuery1->Parameters->ParamByName("userId")->Value = CurrentUserId;
+            ADOQuery1->Parameters->ParamByName("drinkId")->Value = drinkId;
+			ADOQuery1->ExecSQL();
+			Form7->RemoveFromFavorites(drinkId);
+		} else {
+			ADOQuery1->Close();
+			ADOQuery1->SQL->Text = "INSERT INTO Улюблені (Користувач, Напій) VALUES (:userId, :drinkId)";
+			ADOQuery1->Parameters->ParamByName("userId")->Value = CurrentUserId;
+			ADOQuery1->Parameters->ParamByName("drinkId")->Value = drinkId;
+			ADOQuery1->ExecSQL();
+
+			Form7->AddToFavorites(drinkId);
+		}
+
+		UpdateHeartState(drinkId, !isFavorite);
+	}
+	catch (Exception &e) {
+		ShowMessage("Помилка: " + e.Message);
+	}
+}
+
+void __fastcall TForm3::UpdateHeartState(int drinkId, bool isFavorite)
+{
+	for (int i = 0; i < AdvScrollBox1->ControlCount; i++) {
+		if (AdvScrollBox1->Controls[i]->InheritsFrom(__classid(TAdvPanel))) {
+			TAdvPanel* panel = dynamic_cast<TAdvPanel*>(AdvScrollBox1->Controls[i]);
+			if (panel->Tag == drinkId) {
+				for (int j = 0; j < panel->ControlCount; j++) {
+                    if (panel->Controls[j]->InheritsFrom(__classid(TImage))) {
+						TImage* img = dynamic_cast<TImage*>(panel->Controls[j]);
+                        if (img == HeartImages[0] || img == HeartImages[1] || img == HeartImages[2] ||
+	img == HeartImages[3] || img == HeartImages[4] || img == HeartImages[5]) {
+                            img->Picture->LoadFromFile(isFavorite ?
+								"D:\\Документи\\Практика\\heart_full.png" :
+                                "D:\\Документи\\Практика\\heart.png");
+						}
+                    }
+				}
+				break;
+			}
+		}
+	}
+}
+
+void __fastcall TForm3::HeartImageClick(TObject *Sender)
+{
+    TImage* heart = dynamic_cast<TImage*>(Sender);
+	if (!heart) return;
+
+	int imgIndex = -1;
+    for (int i = 0; i < 6; i++) {
+		if (HeartImages[i] == heart) {
+			imgIndex = i;
+			break;
+		}
+	}
+
+	if (imgIndex == -1) return;
+
+	TAdvPanel* panel = dynamic_cast<TAdvPanel*>(heart->Parent);
+	if (panel) {
+		ToggleFavorite(panel->Tag);
+	}
+}
+void __fastcall TForm3::Image1Click(TObject *Sender)
+{
+	Form7->Show();
+	this->Hide();
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TForm3::HTMLabel15Click(TObject *Sender)
+{
+	// Реалізація, або навіть порожня функція
+}
+
+//---------------------------------------------------------------------------
+

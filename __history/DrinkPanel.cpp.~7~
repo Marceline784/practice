@@ -1,0 +1,68 @@
+﻿#include <vcl.h>
+#pragma hdrstop
+
+#include "DrinkPanel.h"
+
+#pragma package(smart_init)
+
+
+__fastcall TDrinkPanel::TDrinkPanel(TWinControl* Owner,
+	const String& name,
+	const String& price,
+	const String& desc,
+	const String& photoPath,
+	const String& category)
+	: TAdvPanel(Owner)
+{
+	this->Parent = Owner;
+	this->SetBounds(10, 10, 650, 150);
+	this->Color = clBlack;
+	this->BevelOuter = bvNone;
+	this->BorderStyle = bsSingle;
+	this->BorderWidth = 2;
+
+	this->Category = category;
+
+	lblName = new THTMLabel(this);
+	lblName->Parent = this;
+
+
+	lblPrice = new THTMLabel(this);
+	lblPrice->Parent = this;
+	lblPrice->Left = 181;
+	lblPrice->Top = 8;
+	lblPrice->Width = 212;
+	lblDesc->Height = 41;
+	lblPrice->Font->Name = "Segoe UI";
+	lblPrice->Caption = "<font color=\"#E63946\" size=\"15\" face=\"Segoe UI\"><b><p align=\"left\">" + price + "₴</p></b></font>";
+
+	lblDesc = new THTMLabel(this);
+	lblDesc->Parent = this;
+	lblDesc->Left = 181;
+	lblDesc->Top = 8;
+	lblDesc->Width = 212;
+	lblDesc->Height = 41;
+	lblDesc->Font->Name = "Segoe UI";
+	lblDesc->Caption = "<font color=\"#FFFFFF\" size=\"15\" face=\"Segoe UI\"><p align=\"left\">" + desc + "</p></font>";
+
+	imgPhoto = new TImage(this);
+	imgPhoto->Parent = this;
+	imgPhoto->Left = 12;
+	imgPhoto->Top = 16;
+	imgPhoto->Width = 155;
+	imgPhoto->Height = 153;
+	imgPhoto->Stretch = true;
+	if (FileExists(photoPath))
+		imgPhoto->Picture->LoadFromFile(photoPath);
+
+	btnOrder = new TAdvGlowButton(this);
+	btnOrder->Parent = this;
+	btnOrder->Caption = "Замовити";
+	btnOrder->Left = 181;
+	btnOrder->Top = 127;
+	btnOrder->Width = 153;
+	btnOrder->Height = 33;
+	btnOrder->Font->Size = 12;
+	btnOrder->Font->Color = clWhite;
+}
+

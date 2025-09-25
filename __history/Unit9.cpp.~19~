@@ -1,0 +1,176 @@
+﻿//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+  #include "Unit2.h"
+  #include "Unit3.h"
+#include "Unit9.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "AdvGrid"
+#pragma link "AdvObj"
+#pragma link "AdvUtil"
+#pragma link "BaseGrid"
+#pragma link "HTMLabel"
+#pragma link "AdvPanel"
+#pragma link "AdvScrollBox"
+#pragma resource "*.dfm"
+TForm9 *Form9;
+//---------------------------------------------------------------------------
+__fastcall TForm9::TForm9(TComponent* Owner)
+	: TForm(Owner)
+{
+Timer1->Enabled = true;
+Form9->Color = (TColor)0x1E1E1E;
+Image2->Picture->LoadFromFile("D:\\Документи\\Практика\\arrow.png");
+AdvScrollBox1->VertScrollBar->Position = 0;
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm9::UpdateOrderStatuses()
+{
+	if (CurrentUserId <= 0) return;
+
+	try {
+		// Оновлюємо статуси по черзі за логікою
+
+		TDateTime now = Now();
+
+		// 1. Вибираємо всі замовлення зі статусом 1 або 2
+		ADOQuery1->Close();
+		ADOQuery1->SQL->Text = "SELECT Замовлення, Дата, Статус FROM Замовлення WHERE Статус IN (1,2)";
+		ADOQuery1->Open();
+
+		while (!ADOQuery1->Eof) {
+			int orderId = ADOQuery1->FieldByName("Замовлення")->AsInteger;
+			TDateTime orderDate = ADOQuery1->FieldByName("Дата")->AsDateTime;
+			int status = ADOQuery1->FieldByName("Статус")->AsInteger;
+
+			double minutesPassed = double(now - orderDate) * 24.0 * 60.0;
+
+
+			int newStatus = status;
+
+			if (status == 1 && minutesPassed >= 2) newStatus = 2;
+			else if (status == 2 && minutesPassed >= 15) newStatus = 3;
+
+			if (newStatus != status) {
+				ADOQuery1->Close();
+				ADOQuery1->SQL->Text = "UPDATE Замовлення SET Статус = :newStatus WHERE Замовлення = :orderId";
+				ADOQuery1->Parameters->ParamByName("newStatus")->Value = newStatus;
+				ADOQuery1->Parameters->ParamByName("orderId")->Value = orderId;
+				ADOQuery1->ExecSQL();
+
+				// Після виконання UPDATE відкриваємо запит знову щоб продовжити цикл
+				ADOQuery1->Close();
+				ADOQuery1->SQL->Text = "SELECT Замовлення, Дата, Статус FROM Замовлення WHERE Статус IN (1,2)";
+				ADOQuery1->Open();
+
+				// Продовжити цикл з початку, оскільки набір даних змінився
+				continue;
+			}
+			else
+				ADOQuery1->Next();
+		}
+	}
+	catch (Exception &e) {
+		ShowMessage("Помилка оновлення статусів: " + e.Message);
+	}
+}
+
+void __fastcall TForm9::LoadOrdersForUser(int userId)
+{
+	if (userId <= 0) return;
+
+	ADOQuery1->Close();
+	ADOQuery1->SQL->Text =
+	"SELECT o.Замовлення, d.Назва AS Напій, o.Дата, o.Кількість, s.Назва AS Статус "
+	"FROM (Замовлення o "
+	"INNER JOIN Напій d ON o.Напій = d.Напій) "
+	"INNER JOIN Статус s ON o.Статус = s.Статус "
+	"WHERE o.Користувач = :userId "
+	"ORDER BY o.Дата DESC";
+	ADOQuery1->Parameters->ParamByName("userId")->Value = userId;
+	ADOQuery1->Open();
+
+for (int i = AdvScrollBox1->ControlCount - 1; i >= 0; i--) {
+	TControl* ctrl = AdvScrollBox1->Controls[i];
+	delete ctrl;
+}
+
+
+	int topPosition = 10;
+
+	while (!ADOQuery1->Eof) {
+		int orderId = ADOQuery1->FieldByName("Замовлення")->AsInteger;
+		String drinkName = ADOQuery1->FieldByName("Напій")->AsString;
+		TDateTime date = ADOQuery1->FieldByName("Дата")->AsDateTime;
+		int quantity = ADOQuery1->FieldByName("Кількість")->AsInteger;
+		String status = ADOQuery1->FieldByName("Статус")->AsString;
+
+		TAdvPanel* orderPanel = new TAdvPanel(AdvScrollBox1);
+		orderPanel->Parent = AdvScrollBox1;
+		orderPanel->Top = topPosition;
+		orderPanel->Width = 526;
+		orderPanel->Height = 100;
+		orderPanel->Color = (TColor)0x1E1E1E;
+		orderPanel->BevelOuter = bvNone;
+
+		THTMLabel* lblDate = new THTMLabel(orderPanel);
+		lblDate->Parent = orderPanel;
+		lblDate->Left = 10;
+		lblDate->Top = 10;
+		lblDate->Caption = "📅 " + DateToStr(date);
+
+		THTMLabel* lblOrder = new THTMLabel(orderPanel);
+		lblOrder->Parent = orderPanel;
+		lblOrder->Left = 10;
+		lblOrder->Top = 30;
+		lblOrder->Caption = "🧾 Замовлення №" + IntToStr(orderId) + ": " + drinkName + " x" + IntToStr(quantity);
+
+		THTMLabel* lblStatus = new THTMLabel(orderPanel);
+		lblStatus->Parent = orderPanel;
+		lblStatus->Left = 10;
+		lblStatus->Top = 60;
+
+		TColor statusColor;
+		if (status == "Прийнято") statusColor = (TColor)0xE6A23C;
+		else if (status == "Готується") statusColor = (TColor)0x409EFF;
+		else if (status == "Видано") statusColor = (TColor)0x67C23A;
+		else statusColor = clBlack;
+
+		lblStatus->Caption = "<font color='#" + IntToHex((int)statusColor, 6) + "'>🔁 " + status + "</font>";
+
+		topPosition += orderPanel->Height + 10;
+
+		ADOQuery1->Next();
+	}
+}
+
+void __fastcall TForm9::RefreshData()
+{
+
+	LoadOrdersForUser(CurrentUserId);
+	UpdateOrderStatuses();
+}
+
+void __fastcall TForm9::Timer1Timer(TObject *Sender)
+{
+	UpdateOrderStatuses();
+    LoadOrdersForUser(CurrentUserId);
+}
+
+
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm9::Image2Click(TObject *Sender)
+{
+	   Form3->Show();
+	this->Hide();
+}
+//---------------------------------------------------------------------------
+
+
+

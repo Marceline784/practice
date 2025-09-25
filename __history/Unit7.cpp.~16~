@@ -1,0 +1,208 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include "Unit2.h"
+#include "Unit3.h"
+#include "Unit7.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "HTMLabel"
+#pragma link "AdvGlowButton"
+#pragma link "AdvPanel"
+#pragma link "AdvScrollBox"
+#pragma resource "*.dfm"
+TForm7 *Form7;
+//---------------------------------------------------------------------------
+__fastcall TForm7::TForm7(TComponent* Owner)
+	: TForm(Owner)
+{
+Form7->Color = (TColor)0x1E1E1E;
+Image2->Picture->LoadFromFile("D:\\Документи\\Практика\\arrow.png");
+AdvScrollBox1->VertScrollBar->Position = 0;
+TAdvPanel* panels[] = { AdvPanel1, AdvPanel2, AdvPanel3, AdvPanel4, AdvPanel5, AdvPanel6 };
+for (int i = 0; i < 6; i++) {
+	panels[i]->Color = (TColor)0x1E1E1E;
+}
+
+
+Image3->Picture->LoadFromFile("D:\\Документи\\Практика\\heart_full.png");
+Image4->Picture->LoadFromFile("D:\\Документи\\Практика\\aperol.png");
+Image5->Picture->LoadFromFile("D:\\Документи\\Практика\\strwpn.png");
+Image6->Picture->LoadFromFile("D:\\Документи\\Практика\\heart_full.png");
+Image7->Picture->LoadFromFile("D:\\Документи\\Практика\\pncolada.png");
+Image8->Picture->LoadFromFile("D:\\Документи\\Практика\\heart_full.png");
+Image9->Picture->LoadFromFile("D:\\Документи\\Практика\\shot.png");
+Image10->Picture->LoadFromFile("D:\\Документи\\Практика\\heart_full.png");
+Image11->Picture->LoadFromFile("D:\\Документи\\Практика\\bellini.png");
+Image12->Picture->LoadFromFile("D:\\Документи\\Практика\\heart_full.png");
+Image13->Picture->LoadFromFile("D:\\Документи\\Практика\\clover.png");
+Image14->Picture->LoadFromFile("D:\\Документи\\Практика\\heart_full.png");
+
+AdvPanel1->Tag = 2;
+AdvPanel2->Tag = 1;
+AdvPanel3->Tag = 3;
+AdvPanel4->Tag = 4;
+AdvPanel5->Tag = 5;
+AdvPanel6->Tag = 6;
+LoadFavorites();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm7::LoadFavorites()
+{
+	TAdvPanel* panels[] = {AdvPanel1, AdvPanel2, AdvPanel3, AdvPanel4, AdvPanel5, AdvPanel6};
+	for (int i = 0; i < 6; i++) {
+		panels[i]->Visible = false;
+	}
+
+    try {
+        ADOQuery1->Close();
+		ADOQuery1->SQL->Text =
+			"SELECT н.Напій, н.Назва FROM [Улюблені] у "
+    "INNER JOIN [Напій] н ON у.[Напій] = н.[Напій] "
+    "WHERE у.[Користувач] = :userId";
+        ADOQuery1->Parameters->ParamByName("userId")->Value = CurrentUserId;
+        ADOQuery1->Open();
+
+        int panelIndex = 0;
+        while (!ADOQuery1->Eof && panelIndex < 6) {
+            int drinkId = ADOQuery1->FieldByName("Напій")->AsInteger;
+            String drinkName = ADOQuery1->FieldByName("Назва")->AsString;
+
+			for (int i = 0; i < 6; i++) {
+				if (panels[i]->Tag == drinkId) {
+					for (int j = 0; j < panels[i]->ControlCount; j++) {
+						if (panels[i]->Controls[j]->InheritsFrom(__classid(TLabel))) {
+							TLabel* lbl = dynamic_cast<TLabel*>(panels[i]->Controls[j]);
+							lbl->Caption = drinkName;
+							break;
+						}
+					}
+					panels[i]->Visible = true;
+					panelIndex++;
+					break;
+				}
+			}
+			ADOQuery1->Next();
+		}
+	}
+	catch (Exception &e) {
+		ShowMessage("Помилка завантаження улюблених: " + e.Message);
+	}
+}
+
+
+void __fastcall TForm7::AddToFavorites(int drinkId)
+{
+	TAdvPanel* panel = nullptr;
+	TAdvPanel* panels[] = {AdvPanel1, AdvPanel2, AdvPanel3, AdvPanel4, AdvPanel5, AdvPanel6};
+
+	for (int i = 0; i < 6; i++) {
+		if (panels[i]->Tag == drinkId && !panels[i]->Visible) {
+			panel = panels[i];
+			break;
+		}
+	}
+
+	if (panel) {
+		try {
+			ADOQuery1->Close();
+			ADOQuery1->SQL->Text = "SELECT Назва FROM Напій WHERE Напій = :drinkId";
+			ADOQuery1->Parameters->ParamByName("drinkId")->Value = drinkId;
+			ADOQuery1->Open();
+
+			if (!ADOQuery1->IsEmpty()) {
+				String drinkName = ADOQuery1->FieldByName("Назва")->AsString;
+
+				for (int i = 0; i < panel->ControlCount; i++) {
+					if (panel->Controls[i]->InheritsFrom(__classid(TLabel))) {
+						TLabel* lbl = dynamic_cast<TLabel*>(panel->Controls[i]);
+						lbl->Caption = drinkName;
+						break;
+					}
+				}
+
+				panel->Visible = true;
+			}
+		}
+		catch (Exception &e) {
+			ShowMessage("Помилка: " + e.Message);
+		}
+	}
+}
+
+
+void __fastcall TForm7::RemoveFromFavorites(int drinkId)
+{
+	TAdvPanel* panels[] = {AdvPanel1, AdvPanel2, AdvPanel3, AdvPanel4, AdvPanel5, AdvPanel6};
+
+	for (int i = 0; i < 6; i++) {
+		if (panels[i]->Tag == drinkId) {
+			panels[i]->Visible = false;
+			break;
+		}
+	}
+}
+
+
+void __fastcall TForm7::DeleteClick(TObject *Sender)
+{
+	TImage* img = dynamic_cast<TImage*>(Sender);
+	if (img && img->Parent) {
+		TAdvPanel* panel = dynamic_cast<TAdvPanel*>(img->Parent);
+		if (panel) {
+			try {
+				ADOQuery1->Close();
+				ADOQuery1->SQL->Text =
+					"DELETE FROM Улюблені WHERE Користувач = :userId AND Напій = :drinkId";
+				ADOQuery1->Parameters->ParamByName("userId")->Value = CurrentUserId;
+				ADOQuery1->Parameters->ParamByName("drinkId")->Value = panel->Tag;
+				ADOQuery1->ExecSQL();
+
+				panel->Visible = false;
+				Form3->UpdateHeartState(panel->Tag, false);
+			}
+			catch (Exception &e) {
+				ShowMessage("Помилка видалення: " + e.Message);
+			}
+		}
+	}
+}
+void __fastcall TForm3::ButtonClick(TObject *Sender)
+{
+int napijID = 2;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton5Click(TObject *Sender)
+{
+int napijID = 6;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton1Click(TObject *Sender)
+{
+int napijID = 1;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm3::AdvGlowButton2Click(TObject *Sender)
+{
+int napijID = 3;
+	Form6->AddToCart(napijID);
+	ShowMessage("Напій додано до кошика!");
+}
+void __fastcall TForm7::Image2Click(TObject *Sender)
+{
+   Form3->Show();
+this->Hide();
+}
+//---------------------------------------------------------------------------
+

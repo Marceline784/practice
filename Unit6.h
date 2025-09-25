@@ -1,0 +1,104 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit6H
+#define Unit6H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include "HTMLabel.hpp"
+#include <Vcl.ExtCtrls.hpp>
+#include "AdvGlowButton.hpp"
+#include "AdvPanel.hpp"
+#include "AdvScrollBox.hpp"
+#include <vector>
+//---------------------------------------------------------------------------
+class TForm6 : public TForm
+{
+__published:	// IDE-managed Components
+	THTMLabel *HTMLabel1;
+	TImage *Image2;
+	TAdvScrollBox *AdvScrollBox1;
+	TAdvPanel *AdvPanel2;
+	THTMLabel *HTMLabel9;
+	THTMLabel *HTMLabel10;
+	THTMLabel *HTMLabel11;
+	TImage *Image4;
+	TImage *Image3;
+	TAdvPanel *AdvPanel1;
+	THTMLabel *HTMLabel6;
+	THTMLabel *HTMLabel7;
+	THTMLabel *HTMLabel8;
+	TImage *Image5;
+	TImage *Image6;
+	TAdvPanel *AdvPanel3;
+	THTMLabel *HTMLabel12;
+	THTMLabel *HTMLabel13;
+	THTMLabel *HTMLabel14;
+	TImage *Image7;
+	TImage *Image8;
+	TAdvPanel *AdvPanel4;
+	THTMLabel *HTMLabel15;
+	THTMLabel *HTMLabel16;
+	THTMLabel *HTMLabel17;
+	TImage *Image9;
+	TImage *Image10;
+	TAdvPanel *AdvPanel5;
+	THTMLabel *HTMLabel18;
+	THTMLabel *HTMLabel19;
+	THTMLabel *HTMLabel20;
+	TImage *Image11;
+	TImage *Image12;
+	TAdvPanel *AdvPanel6;
+	THTMLabel *HTMLabel21;
+	THTMLabel *HTMLabel22;
+	THTMLabel *HTMLabel23;
+	TImage *Image13;
+	TImage *Image14;
+	TAdvGlowButton *Button;
+	TLabel *Label1;
+	TImage *Image1;
+	TImage *Image15;
+	TImage *Image16;
+	TLabel *Label2;
+	TImage *Image17;
+	TImage *Image18;
+	TLabel *Label3;
+	TImage *Image20;
+	TLabel *Label4;
+	TImage *Image21;
+	TImage *Image22;
+	TLabel *Label5;
+	TImage *Image23;
+	TImage *Image24;
+	TLabel *Label6;
+	TImage *Image25;
+	TImage *Image19;
+	TLabel *Label7;
+void __fastcall AddToCart(int id);
+void __fastcall UpdateTotal();
+
+	void __fastcall Image2Click(TObject *Sender);
+	void __fastcall DeleteClick(TObject *Sender);
+	void __fastcall MinusClick(TObject *Sender);
+    void __fastcall PlusClick(TObject *Sender);
+	void __fastcall ButtonClick(TObject *Sender);
+private:	// User declarations
+struct CartItem {
+	int id;
+	String name;
+	double price;
+	int quantity;
+	TAdvPanel* panel;
+};
+std::vector<CartItem> cartItems;
+public:
+  int CurrentUserId;
+
+	__fastcall TForm6(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm6 *Form6;
+//---------------------------------------------------------------------------
+#endif

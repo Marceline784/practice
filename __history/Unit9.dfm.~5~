@@ -1,0 +1,57 @@
+object Form9: TForm9
+  Left = 0
+  Top = 0
+  Caption = 'Form9'
+  ClientHeight = 587
+  ClientWidth = 612
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object HTMLabel1: THTMLabel
+    Left = 137
+    Top = 8
+    Width = 361
+    Height = 97
+    HTMLText.Strings = (
+      
+        '<FONT color="#E63946"  size="37"   face="Segoe UI Black"   ><P a' +
+        'lign="center">'#1047#1072#1084#1086#1074#1083#1077#1085#1085#1103'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object Image2: TImage
+    Left = 32
+    Top = 24
+    Width = 25
+    Height = 41
+    Stretch = True
+    OnClick = Image2Click
+  end
+  object AdvScrollBox1: TAdvScrollBox
+    Left = 32
+    Top = 120
+    Width = 545
+    Height = 457
+    DoubleBuffered = True
+    Ctl3D = False
+    ParentCtl3D = False
+    ParentDoubleBuffered = False
+    TabOrder = 0
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 536
+    Top = 24
+  end
+  object ADOQuery1: TADOQuery
+    Connection = Form2.ADOConnection1
+    DataSource = Form2.DataSource5
+    Parameters = <>
+    Left = 560
+    Top = 80
+  end
+end

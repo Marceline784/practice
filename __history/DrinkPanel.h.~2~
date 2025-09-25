@@ -1,0 +1,31 @@
+//---------------------------------------------------------------------------
+
+#ifndef DrinkPanelH
+#define DrinkPanelH
+#include <AdvPanel.hpp>
+#include <ExtCtrls.hpp>
+#include <HTMLLabel.hpp>
+#include <AdvGlowButton.hpp>
+
+class TDrinkPanel : public TAdvPanel
+{
+private:
+	THTMLLabel* lblName;
+	THTMLLabel* lblPrice;
+	THTMLLabel* lblDesc;
+	TImage* imgPhoto;
+	TAdvGlowButton* btnOrder;
+
+public:
+	String Category;
+
+	__fastcall TDrinkPanel(TWinControl* Owner,
+		const String& name,
+		const String& price,
+		const String& desc,
+		const String& photoPath,
+		const String& category);
+};
+
+//---------------------------------------------------------------------------
+#endif

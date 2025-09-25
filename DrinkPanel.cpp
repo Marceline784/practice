@@ -1,0 +1,113 @@
+﻿#include <vcl.h>
+#pragma hdrstop
+
+#include "DrinkPanel.h"
+
+#pragma package(smart_init)
+
+
+__fastcall TDrinkPanel::TDrinkPanel(TWinControl* Owner,
+    const String& name,
+    const String& price,
+    const String& desc,
+    const String& photoPath,
+    const String& category)
+    : TAdvPanel(Owner)
+{
+    // Основні налаштування панелі
+    this->Parent = Owner;
+    this->SetBounds(10, 10, 650, 180);
+    this->Color = (TColor)0x1E1E1E;
+    this->BevelOuter = bvNone;
+    this->BorderStyle = bsSingle;
+    this->BorderColor = (TColor)0xE63946;
+    this->BorderWidth = 2;
+
+    this->Category = category;
+
+    lblName = new THTMLabel(this);
+    lblName->Parent = this;
+	lblName->Left = 181;
+	lblName->Top = 8;
+	lblName->Width = 300;
+	lblName->Height = 41;
+    lblName->Font->Name = "Segoe UI";
+	lblName->Caption = "<font color=\"#FFFFFF\" size=\"20\" face=\"Segoe UI\"><b>" + name + "</b></font>";
+
+    lblPrice = new THTMLabel(this);
+    lblPrice->Parent = this;
+	lblPrice->Left = 181;
+	lblPrice->Top = 48;
+	lblPrice->Width = 212;
+	lblPrice->Height = 41;
+    lblPrice->Font->Name = "Segoe UI";
+	lblPrice->Caption = "<font color=\"#E63946\" size=\"15\" face=\"Segoe UI\"><b>" + price + "₴</b></font>";
+
+
+    lblDesc = new THTMLabel(this);
+    lblDesc->Parent = this;
+	lblDesc->Left = 181;
+	lblDesc->Top = 80;
+    lblDesc->Width = 450;
+	lblDesc->Height = 60;
+    lblDesc->Font->Name = "Segoe UI";
+	lblDesc->Caption = "<font color=\"#A8A8A8\" size=\"15\" face=\"Segoe UI\">" + desc + "</font>";
+
+
+    imgPhoto = new TImage(this);
+    imgPhoto->Parent = this;
+    imgPhoto->Left = 15;
+    imgPhoto->Top = 15;
+	imgPhoto->Width = 155;
+	imgPhoto->Height = 153;
+    imgPhoto->Stretch = true;
+    imgPhoto->Proportional = true;
+    imgPhoto->Center = true;
+
+    if (FileExists(photoPath)) {
+        imgPhoto->Picture->LoadFromFile(photoPath);
+    } else {
+        imgPhoto->Picture->Bitmap->Width = imgPhoto->Width;
+        imgPhoto->Picture->Bitmap->Height = imgPhoto->Height;
+        imgPhoto->Picture->Bitmap->Canvas->Brush->Color = clGray;
+        imgPhoto->Picture->Bitmap->Canvas->FillRect(TRect(0, 0, imgPhoto->Width, imgPhoto->Height));
+        imgPhoto->Picture->Bitmap->Canvas->Font->Size = 10;
+        imgPhoto->Picture->Bitmap->Canvas->TextOut(10, 60, "No Image");
+    }
+
+
+    btnOrder = new TAdvGlowButton(this);
+    btnOrder->Parent = this;
+	btnOrder->Caption = "Дадати";
+	btnOrder->Left = 181;
+	btnOrder->Top = 127;
+	btnOrder->Width = 153;
+	btnOrder->Height = 33;
+    btnOrder->Font->Size = 12;
+	btnOrder->Font->Color = clWhite;
+
+    btnLike = new TAdvGlowButton(this);
+    btnLike->Parent = this;
+	btnLike->Left = 544;
+	btnLike->Top = 16;
+    btnLike->Width = 35;
+	btnLike->Height = 35;
+    String heartImagePath = "D:\\Документи\\Практика\\heart.png";
+    if (FileExists(heartImagePath)) {
+        TImage* tempImg = new TImage(this);
+        try {
+            tempImg->Picture->LoadFromFile(heartImagePath);
+
+            btnLike->Images = new TImageList(this);
+            btnLike->Images->Width = tempImg->Picture->Width;
+            btnLike->Images->Height = tempImg->Picture->Height;
+            btnLike->Images->Add(tempImg->Picture->Bitmap, NULL);
+
+            btnLike->ImageIndex = 0;
+            btnLike->Caption = "";
+        }
+        __finally {
+            delete tempImg;
+        }
+	}
+}

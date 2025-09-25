@@ -1,0 +1,45 @@
+//---------------------------------------------------------------------------
+
+#ifndef Unit8H
+#define Unit8H
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include "AdvGlowButton.hpp"
+#include "HTMLabel.hpp"
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Dialogs.hpp>
+//---------------------------------------------------------------------------
+class TForm8 : public TForm
+{
+__published:	// IDE-managed Components
+	THTMLabel *HTMLabel1;
+	THTMLabel *HTMLabel2;
+	THTMLabel *HTMLabel3;
+	THTMLabel *HTMLabel4;
+	THTMLabel *HTMLabel5;
+	TImage *Image1;
+	THTMLabel *HTMLabel6;
+	TEdit *Edit2;
+	TEdit *Edit1;
+	TEdit *Edit3;
+	TEdit *Edit4;
+	TAdvGlowButton *AdvGlowButton6;
+	TOpenDialog *OpenDialog1;
+	TAdvGlowButton *AdvGlowButton2;
+	void __fastcall AdvGlowButton6Click(TObject *Sender);
+    void __fastcall AdvGlowButton2Click(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+int CurrentUserId;
+	void LoadUserData();
+	String selectedPhotoPath;
+	__fastcall TForm8(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm8 *Form8;
+//---------------------------------------------------------------------------
+#endif

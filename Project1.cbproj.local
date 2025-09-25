@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.163,D:\Документи\Практика\програма\Unit2.dfm=D:\Документи\Практика\app\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.340,=D:\Документи\Практика\програма\Unit3.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.022,D:\Документи\Практика\app\Project1.cbproj=D:\Документи\Практика\app\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.059,=D:\Документи\Практика\програма\Unit2.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.494,D:\Документи\Практика\програма\Project1.cbproj=D:\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.121,D:\Документи\Практика\app\Unit4.cpp=D:\Документи\Практика\app\Unit3.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.510,=D:\Документи\Практика\app\Unit4.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.405,=D:\Документи\Практика\app\Unit4.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.163,D:\Документи\Практика\програма\Unit2.cpp=D:\Документи\Практика\app\Unit2.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.473,=D:\Документи\Практика\app\Unit5.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.759,=D:\Документи\Практика\app\Unit5.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,D:\Документи\Практика\програма\Unit1.dfm=D:\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.649,D:\Документи\Практика\програма\Unit1.dfm=D:\Документи\Практика\app\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.783,=D:\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.392,=D:\Документи\Практика\app\Unit8.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.150,=D:\Документи\Практика\app\Unit3.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.710,D:\Документи\Практика\app\Unit3.cpp=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,D:\Документи\Практика\програма\Unit1.h=D:\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.649,D:\Документи\Практика\програма\Unit1.h=D:\Документи\Практика\app\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.951,=D:\Документи\Практика\app\Unit6.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.207,=D:\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.121,D:\Документи\Практика\app\Unit4.dfm=D:\Документи\Практика\app\Unit3.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.590,=D:\Документи\Практика\app\Unit9.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.320,D:\Документи\Практика\програма\Project1PCH1.h=D:\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.349,D:\Документи\Практика\програма\Project1PCH1.h=D:\Документи\Практика\app\Project1PCH2.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.163,D:\Документи\Практика\програма\Unit2.h=D:\Документи\Практика\app\Unit2.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.121,D:\Документи\Практика\app\Unit4.h=D:\Документи\Практика\app\Unit3.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.468,D:\Документи\Практика\app\DrinkPanel.h=D:\Документи\Практика\app\Unit5.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.485,=D:\Документи\Практика\app\Unit7.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.492,D:\Документи\Практика\програма\Project1.cbproj=D:\Документи\Практика\app\Project1.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,D:\Документи\Практика\програма\Unit1.cpp=D:\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.649,D:\Документи\Практика\програма\Unit1.cpp=D:\Документи\Практика\app\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.468,D:\Документи\Практика\app\DrinkPanel.cpp=D:\Документи\Практика\app\Unit5.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.368,D:\Документи\Практика\app\DrinkPanel.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

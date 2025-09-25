@@ -1,0 +1,89 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+#include "Unit2.h"
+#include "Unit3.h"
+#include "Unit4.h"
+#include "Unit5.h"
+#include "Unit6.h"
+#include "Unit7.h"
+#include "Unit8.h"
+#include "Unit9.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "HTMLabel"
+#pragma link "AdvEdit"
+#pragma link "DBAdvEd"
+#pragma link "AdvGlowButton"
+#pragma link "htmlbtns"
+#pragma link "AdvToolBtn"
+#pragma link "AdvSmoothButton"
+#pragma link "AeroButtons"
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+Form1->Color = (TColor)0x1E1E1E;
+DBAdvEdit1->Color = (TColor)0x1E1E1E;
+DBAdvEdit1->Font->Color = clWhite;
+DBAdvEdit1->Flat = true;
+
+DBAdvEdit2->Color = (TColor)0x1E1E1E;
+DBAdvEdit2->Font->Color = clWhite;
+DBAdvEdit2->Flat = true;
+DBAdvEdit2->EditType = Advedit::TAdvEditType::etPassword;
+DBAdvEdit2->PasswordChar = '*';
+}
+
+
+//---------------------------------------------------------------------------
+String currentLogin;
+void __fastcall TForm1::ButtonClick(TObject *Sender)
+{
+	String login = DBAdvEdit1->Text.Trim();
+	String password = DBAdvEdit2->Text.Trim();
+
+	String query = "SELECT * FROM Користувачі WHERE Логін = :login AND Пароль = :password";
+	ADOQuery1->Close();
+	ADOQuery1->SQL->Clear();
+	ADOQuery1->SQL->Add(query);
+	ADOQuery1->Parameters->ParamByName("login")->Value = login;
+	ADOQuery1->Parameters->ParamByName("password")->Value = password;
+	ADOQuery1->Open();
+if (!ADOQuery1->IsEmpty()) {
+
+ShowMessage("Вхід успішний. Вітаємо, " + ADOQuery1->FieldByName("ПІБ")->AsString + "!");
+	CurrentUserId = ADOQuery1->FieldByName("Користувач")->AsInteger;
+	this->Hide();
+	Form9->CurrentUserId = CurrentUserId;
+	Form6->CurrentUserId = CurrentUserId;
+	Form9->RefreshData();
+	Form5->CurrentUserId = CurrentUserId;
+    Form5->LoadUserData();
+	Form3->CurrentUserId = CurrentUserId;
+	Form7->CurrentUserId = CurrentUserId;
+	Form8->CurrentUserId = CurrentUserId;
+	Form3->LoadFavoritesState();
+	Form7->LoadFavorites();
+	Form8->LoadUserData();
+	Form3->Show();
+} else {
+	ShowMessage("Невірний логін або пароль.");
+	}
+
+}
+//---------------------------------------------------------------------------
+ void __fastcall TForm1::HTMLabel4Click(TObject *Sender)
+{
+	Form4->Show();
+	this->Hide();
+}
+
+
+
+

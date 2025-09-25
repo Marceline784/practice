@@ -1,0 +1,99 @@
+//---------------------------------------------------------------------------
+#include <vcl.h>
+#pragma hdrstop
+ #include "Unit1.h"
+ #include "Unit5.h"
+#include "Unit8.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "AdvGlowButton"
+#pragma link "HTMLabel"
+#pragma resource "*.dfm"
+TForm8 *Form8;
+//---------------------------------------------------------------------------
+__fastcall TForm8::TForm8(TComponent* Owner)
+	: TForm(Owner)
+{
+Form8->Color = (TColor)0x1E1E1E;
+Edit1->Color = (TColor)0x1E1E1E;
+Edit2->Color = (TColor)0x1E1E1E;
+Edit3->Color = (TColor)0x1E1E1E;
+Edit4->Color = (TColor)0x1E1E1E;
+}
+void __fastcall TForm8::FormShow(TObject *Sender)
+{
+	LoadUserData();
+}
+
+void __fastcall TForm8::LoadUserData()
+{
+	if (CurrentUserId <= 0) {
+		ShowMessage("Користувач не визначений!");
+		return;
+	}
+
+	try {
+		Form1->ADOQuery1->Close();
+		Form1->ADOQuery1->SQL->Text = "SELECT ПІБ, Телефон, Логін, Пароль, Фото FROM Користувачі WHERE Користувач = :id";
+		Form1->ADOQuery1->Parameters->ParamByName("id")->Value = CurrentUserId;
+		Form1->ADOQuery1->Open();
+
+		if (!Form1->ADOQuery1->IsEmpty()) {
+			Edit1->Text = Form1->ADOQuery1->FieldByName("ПІБ")->AsString;
+			Edit2->Text = Form1->ADOQuery1->FieldByName("Телефон")->AsString;
+			Edit3->Text = Form1->ADOQuery1->FieldByName("Логін")->AsString;
+			Edit4->Text = Form1->ADOQuery1->FieldByName("Пароль")->AsString;
+
+			String photoPath = Form1->ADOQuery1->FieldByName("Фото")->AsString;
+			if (FileExists(photoPath))
+			{
+				Image1->Picture->LoadFromFile(photoPath);
+				selectedPhotoPath = photoPath;
+			}
+		}
+	}
+	catch (const Exception &e) {
+		ShowMessage("Помилка завантаження: " + e.Message);
+	}
+}
+void __fastcall TForm8::AdvGlowButton2Click(TObject *Sender)
+{
+if (OpenDialog1->Execute())
+	{
+		selectedPhotoPath = OpenDialog1->FileName;
+		Image1->Picture->LoadFromFile(selectedPhotoPath);
+	}
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TForm8::AdvGlowButton6Click(TObject *Sender)
+{
+	try {
+        String photoPathWithQuotes = "\"" + selectedPhotoPath + "\"";
+
+        Form1->ADOQuery1->Close();
+        Form1->ADOQuery1->SQL->Text =
+            "UPDATE Користувачі SET ПІБ = :pib, Телефон = :tel, Логін = :login, Пароль = :pass, Фото = :photo "
+            "WHERE Користувач = :id";
+
+        Form1->ADOQuery1->Parameters->ParamByName("pib")->Value = Edit1->Text.Trim();
+        Form1->ADOQuery1->Parameters->ParamByName("tel")->Value = Edit2->Text.Trim();
+        Form1->ADOQuery1->Parameters->ParamByName("login")->Value = Edit3->Text.Trim();
+        Form1->ADOQuery1->Parameters->ParamByName("pass")->Value = Edit4->Text.Trim();
+
+		Form1->ADOQuery1->Parameters->ParamByName("photo")->Value = selectedPhotoPath;
+
+        Form1->ADOQuery1->Parameters->ParamByName("id")->Value = CurrentUserId;
+        Form1->ADOQuery1->ExecSQL();
+
+        ShowMessage("Профіль успішно оновлено!");
+    }
+    catch (const Exception &e) {
+        ShowMessage("Помилка оновлення: " + e.Message);
+    }
+    Form5->LoadUserData();
+    Form5->Show();
+    this->Hide();
+}
+
+//---------------------------------------------------------------------------

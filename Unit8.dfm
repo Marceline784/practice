@@ -1,0 +1,266 @@
+object Form8: TForm8
+  Left = 0
+  Top = 0
+  Caption = 'Form8'
+  ClientHeight = 599
+  ClientWidth = 519
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object HTMLabel1: THTMLabel
+    Left = 72
+    Top = 0
+    Width = 361
+    Height = 97
+    HTMLText.Strings = (
+      
+        '<FONT color="#E63946"  size="37"   face="Segoe UI Black"   ><P a' +
+        'lign="center">'#1056#1077#1076#1072#1075#1091#1074#1072#1085#1085#1103'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object HTMLabel2: THTMLabel
+    Left = 24
+    Top = 289
+    Width = 120
+    Height = 33
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1055#1030#1041'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object HTMLabel3: THTMLabel
+    Left = 24
+    Top = 353
+    Width = 120
+    Height = 33
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1058#1077#1083#1077#1092#1086#1085'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object HTMLabel4: THTMLabel
+    Left = 24
+    Top = 417
+    Width = 120
+    Height = 33
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1051#1086#1075#1110#1085'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object HTMLabel5: THTMLabel
+    Left = 32
+    Top = 481
+    Width = 120
+    Height = 33
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1055#1072#1088#1086#1083#1100'</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object Image1: TImage
+    Left = 288
+    Top = 119
+    Width = 145
+    Height = 131
+    Proportional = True
+    Stretch = True
+  end
+  object HTMLabel6: THTMLabel
+    Left = 50
+    Top = 129
+    Width = 162
+    Height = 33
+    HTMLText.Strings = (
+      
+        '<FONT color="#D3D3D3"  size="20" face="Segoe UI"><P align="left"' +
+        '>'#1060#1086#1090#1086'(png)</P></FONT>')
+    Transparent = True
+    Version = '2.5.0.0'
+  end
+  object Edit2: TEdit
+    Left = 176
+    Top = 353
+    Width = 321
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Edit1: TEdit
+    Left = 176
+    Top = 289
+    Width = 321
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+  end
+  object Edit3: TEdit
+    Left = 176
+    Top = 417
+    Width = 321
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+  end
+  object Edit4: TEdit
+    Left = 176
+    Top = 481
+    Width = 321
+    Height = 39
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clLightgray
+    Font.Height = -23
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+  end
+  object AdvGlowButton6: TAdvGlowButton
+    Left = 8
+    Top = 544
+    Width = 500
+    Height = 45
+    Caption = #1047#1073#1077#1088#1077#1075#1090#1080
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    NotesFont.Charset = DEFAULT_CHARSET
+    NotesFont.Color = clWindowText
+    NotesFont.Height = -13
+    NotesFont.Name = 'Tahoma'
+    NotesFont.Style = []
+    ParentFont = False
+    Rounded = False
+    TabOrder = 4
+    OnClick = AdvGlowButton6Click
+    Appearance.BorderColor = 4602342
+    Appearance.BorderColorHot = 4602342
+    Appearance.BorderColorCheckedHot = 4602342
+    Appearance.BorderColorDown = 4602342
+    Appearance.BorderColorChecked = 4602342
+    Appearance.BorderColorDisabled = 4602342
+    Appearance.BorderColorFocused = 4602342
+    Appearance.Color = 4602342
+    Appearance.ColorTo = 4602342
+    Appearance.ColorChecked = 4602342
+    Appearance.ColorCheckedTo = 4602342
+    Appearance.ColorDisabled = 4602342
+    Appearance.ColorDisabledTo = 4602342
+    Appearance.ColorDown = 4602342
+    Appearance.ColorDownTo = 4602342
+    Appearance.ColorHot = 4602342
+    Appearance.ColorHotTo = 4602342
+    Appearance.ColorMirror = 4602342
+    Appearance.ColorMirrorTo = 4602342
+    Appearance.ColorMirrorHot = 4602342
+    Appearance.ColorMirrorHotTo = 4602342
+    Appearance.ColorMirrorDown = 4602342
+    Appearance.ColorMirrorDownTo = 4602342
+    Appearance.ColorMirrorChecked = 4602342
+    Appearance.ColorMirrorCheckedTo = 4602342
+    Appearance.ColorMirrorDisabled = 4602342
+    Appearance.ColorMirrorDisabledTo = 4602342
+    Appearance.GradientHot = ggVertical
+    Appearance.GradientMirrorHot = ggVertical
+    Appearance.GradientDown = ggVertical
+    Appearance.GradientMirrorDown = ggVertical
+    Appearance.GradientChecked = ggVertical
+    Appearance.GradientDisabled = ggVertical
+    Appearance.TextColorChecked = clWhite
+    Appearance.TextColorDown = clWhite
+    Appearance.TextColorHot = clWhite
+    Appearance.TextColorDisabled = clWhite
+  end
+  object AdvGlowButton2: TAdvGlowButton
+    Left = 32
+    Top = 181
+    Width = 193
+    Height = 45
+    Caption = #1054#1073#1088#1072#1090#1080
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    NotesFont.Charset = DEFAULT_CHARSET
+    NotesFont.Color = clWindowText
+    NotesFont.Height = -13
+    NotesFont.Name = 'Tahoma'
+    NotesFont.Style = []
+    ParentFont = False
+    Rounded = False
+    TabOrder = 5
+    OnClick = AdvGlowButton2Click
+    Appearance.BorderColor = 4602342
+    Appearance.BorderColorHot = 4602342
+    Appearance.BorderColorCheckedHot = 4602342
+    Appearance.BorderColorDown = 4602342
+    Appearance.BorderColorChecked = 4602342
+    Appearance.BorderColorDisabled = 4602342
+    Appearance.BorderColorFocused = 4602342
+    Appearance.Color = 4602342
+    Appearance.ColorTo = 4602342
+    Appearance.ColorChecked = 4602342
+    Appearance.ColorCheckedTo = 4602342
+    Appearance.ColorDisabled = 4602342
+    Appearance.ColorDisabledTo = 4602342
+    Appearance.ColorDown = 4602342
+    Appearance.ColorDownTo = 4602342
+    Appearance.ColorHot = 4602342
+    Appearance.ColorHotTo = 4602342
+    Appearance.ColorMirror = 4602342
+    Appearance.ColorMirrorTo = 4602342
+    Appearance.ColorMirrorHot = 4602342
+    Appearance.ColorMirrorHotTo = 4602342
+    Appearance.ColorMirrorDown = 4602342
+    Appearance.ColorMirrorDownTo = 4602342
+    Appearance.ColorMirrorChecked = 4602342
+    Appearance.ColorMirrorCheckedTo = 4602342
+    Appearance.ColorMirrorDisabled = 4602342
+    Appearance.ColorMirrorDisabledTo = 4602342
+    Appearance.GradientHot = ggVertical
+    Appearance.GradientMirrorHot = ggVertical
+    Appearance.GradientDown = ggVertical
+    Appearance.GradientMirrorDown = ggVertical
+    Appearance.GradientChecked = ggVertical
+    Appearance.GradientDisabled = ggVertical
+    Appearance.TextColorChecked = clWhite
+    Appearance.TextColorDown = clWhite
+    Appearance.TextColorHot = clWhite
+    Appearance.TextColorDisabled = clWhite
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 16
+    Top = 96
+  end
+end
